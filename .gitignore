@@ -16,3 +16,6 @@ backups/*
 .idea/
 node_modules/
 .env.example
+cookies.txt
+out.txt
+
