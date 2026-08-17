@@ -1,0 +1,25 @@
+{% extends "public/base.html" %}
+{% block content %}
+<section class="max-w-3xl mx-auto px-6 py-24 prose prose-lg text-charcoal/80">
+  <p class="uppercase tracking-[0.3em] text-gold text-xs mb-3 not-prose">Legal</p>
+  <h1 class="font-serif text-4xl md:text-5xl mb-10 not-prose">Privacy Policy</h1>
+
+  <p>We respect your privacy. This policy explains what information we collect through this
+     website (via our contact and booking forms) and how it is used.</p>
+
+  <h3 class="font-serif">Information We Collect</h3>
+  <p>Name, email, phone number, and event details submitted through our booking and contact forms.
+     We do not sell or share this information with third parties beyond what's required to deliver
+     our services (e.g., email delivery providers).</p>
+
+  <h3 class="font-serif">How We Use It</h3>
+  <p>Solely to respond to inquiries, manage bookings, and communicate about your session. You may
+     request deletion of your data at any time by contacting us directly.</p>
+
+  <h3 class="font-serif">Cookies &amp; Analytics</h3>
+  <p>We use Google Analytics to understand site traffic. This data is anonymized and does not
+     identify you personally.</p>
+
+  <p class="text-sm text-charcoal/50 not-prose mt-10">Last updated: {{ current_year }}</p>
+</section>
+{% endblock %}

@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body { -webkit-font-smoothing: antialiased; }
+  table th, table td { vertical-align: middle; }
+}
+
+@layer components {
+  /* Simple table zebra striping fallback */
+  tbody tr:hover { background-color: rgba(28, 28, 30, 0.02); }
+
+  /* Form field focus consistency */
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #C9A46A;
+  }
+}

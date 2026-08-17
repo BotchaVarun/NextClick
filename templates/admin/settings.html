@@ -1,0 +1,70 @@
+{% extends "admin/_base.html" %}
+{% block title %}Website Settings{% endblock %}
+{% block page_title %}Website Settings{% endblock %}
+{% block content %}
+<div class="bg-white rounded-lg border border-charcoal/10 p-6 max-w-2xl">
+  <form method="POST" action="{{ url_for('admin_settings.update') }}" enctype="multipart/form-data" class="space-y-4">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium mb-1.5">Site Name</label>
+        <input type="text" name="site_name" value="{{ settings.site_name }}" class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm">
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1.5">Tagline</label>
+        <input type="text" name="tagline" value="{{ settings.tagline }}" class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm">
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1.5">Phone</label>
+        <input type="text" name="phone" value="{{ settings.phone }}" class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm">
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1.5">WhatsApp Number</label>
+        <input type="text" name="whatsapp_number" value="{{ settings.whatsapp_number }}" placeholder="e.g. 919876543210 (country code + number, no + or spaces)" class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm">
+        <p class="text-xs text-charcoal/50 mt-1">Contact and booking form enquiries redirect here instead of email.</p>
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1.5">Homepage Hero Image</label>
+        {% if settings.hero_image %}
+        <img src="{{ settings.hero_image }}" alt="Current hero image" class="w-full h-40 object-cover rounded-md mb-2 border border-charcoal/10">
+        {% endif %}
+        <input type="file" name="hero_image" accept="image/*" class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm bg-white">
+        <p class="text-xs text-charcoal/50 mt-1">A wide, high-resolution photo (2000px+ wide) works best. Upload replaces the current one.</p>
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1.5">Email</label>
+        <input type="email" name="email" value="{{ settings.email }}" class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm">
+      </div>
+    </div>
+    <div>
+      <label class="block text-sm font-medium mb-1.5">Studio Address</label>
+      <input type="text" name="address" value="{{ settings.address }}" class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm">
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div>
+        <label class="block text-sm font-medium mb-1.5">Instagram URL</label>
+        <input type="url" name="instagram" value="{{ settings.instagram }}" class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm">
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1.5">Facebook URL</label>
+        <input type="url" name="facebook" value="{{ settings.facebook }}" class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm">
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1.5">Pinterest URL</label>
+        <input type="url" name="pinterest" value="{{ settings.pinterest }}" class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm">
+      </div>
+    </div>
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium mb-1.5">Primary Color</label>
+        <input type="color" name="primary_color" value="{{ settings.primary_color }}" class="w-full h-10 border border-charcoal/20 rounded-md">
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1.5">Accent Color</label>
+        <input type="color" name="accent_color" value="{{ settings.accent_color }}" class="w-full h-10 border border-charcoal/20 rounded-md">
+      </div>
+    </div>
+    <button type="submit" class="bg-charcoal text-cream px-6 py-2.5 rounded-md text-sm hover:bg-gold hover:text-charcoal transition-colors">Save Settings</button>
+  </form>
+</div>
+{% endblock %}

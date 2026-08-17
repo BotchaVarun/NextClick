@@ -1,0 +1,39 @@
+{% extends "public/base.html" %}
+{% block content %}
+<section class="max-w-7xl mx-auto px-6 py-24">
+  <div class="text-center mb-14">
+    <p class="uppercase tracking-[0.3em] text-gold text-xs mb-3">Investment</p>
+    <h1 class="font-serif text-4xl md:text-5xl">Packages &amp; Pricing</h1>
+    <p class="text-charcoal/60 mt-4 max-w-xl mx-auto">
+      Transparent, all-inclusive pricing - no hidden fees. Every package includes professional editing and an online gallery.
+    </p>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    {% for pkg in packages %}
+    <div class="rounded-lg p-8 border {{ 'border-gold bg-gold/5 shadow-lg' if pkg.is_popular else 'border-charcoal/10' }}">
+      {% if pkg.is_popular %}
+      <span class="text-xs uppercase tracking-widest text-gold font-medium">Most Popular</span>
+      {% endif %}
+      <h3 class="font-serif text-2xl mt-2 mb-1">{{ pkg.name }}</h3>
+      <p class="text-3xl font-semibold mb-1">{{ pkg.price | currency }}</p>
+      <p class="text-charcoal/50 text-sm mb-6">{{ pkg.duration }}</p>
+      <ul class="space-y-2 text-sm text-charcoal/80 mb-8">
+        {% for feature in pkg.features %}
+        <li class="flex items-center gap-2"><span class="text-gold">&#10003;</span> {{ feature }}</li>
+        {% endfor %}
+      </ul>
+      <a href="{{ url_for('booking.booking') }}"
+         class="block text-center py-3 rounded-full bg-charcoal text-cream hover:bg-gold hover:text-charcoal transition-colors">
+        Choose {{ pkg.name }}
+      </a>
+    </div>
+    {% else %}
+    <p class="text-charcoal/60 col-span-full text-center">Pricing packages coming soon.</p>
+    {% endfor %}
+  </div>
+
+  <p class="text-center text-charcoal/50 text-sm mt-14">
+    Need something custom? <a href="{{ url_for('contact.contact') }}" class="text-gold hover:underline">Get in touch</a> for a tailored quote.
+  </p>
+</section>
+{% endblock %}

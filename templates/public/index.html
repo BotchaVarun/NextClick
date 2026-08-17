@@ -1,0 +1,120 @@
+{% extends "public/base.html" %}
+{% block content %}
+
+<!-- Hero -->
+<section class="relative h-[90vh] min-h-[620px] flex items-center justify-center text-center overflow-hidden">
+  {% set hero_image = (settings.hero_image if settings and settings.hero_image else 'https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1600&q=80') %}
+  <div class="absolute inset-0 bg-cover bg-center scale-105 animate-hero-zoom"
+       style="background-image: url('{{ hero_image }}');"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-charcoal/70 via-charcoal/50 to-charcoal/80"></div>
+
+  <div class="relative z-10 max-w-3xl px-6">
+    <p class="uppercase tracking-[0.3em] text-gold text-xs mb-5 animate-fade-up" style="animation-delay: 0.1s;">
+      {{ settings.site_name if settings else "Professional Photography Studio" }}
+    </p>
+    <h1 class="font-serif text-4xl md:text-6xl text-cream leading-tight mb-6 animate-fade-up" style="animation-delay: 0.25s;">
+      {{ settings.tagline if settings else "Timeless Moments, Beautifully Captured" }}
+    </h1>
+    <p class="text-cream/80 text-lg mb-10 max-w-xl mx-auto animate-fade-up" style="animation-delay: 0.4s;">
+      Editorial-style photography for weddings, portraits, and events — crafted with care from first click to final print.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center animate-fade-up" style="animation-delay: 0.55s;">
+      <a href="{{ url_for('booking.booking') }}"
+         class="bg-gold text-charcoal px-8 py-3.5 rounded-full font-medium hover:bg-goldlight hover:shadow-lg hover:shadow-gold/20 hover:-translate-y-0.5 transition-all">
+        Book a Session
+      </a>
+      <a href="{{ url_for('services.services_list') }}"
+         class="border border-cream/40 text-cream px-8 py-3.5 rounded-full font-medium hover:bg-cream/10 hover:border-cream/70 transition-all">
+        Explore Services
+      </a>
+    </div>
+  </div>
+
+  <a href="#services-preview" aria-label="Scroll to services"
+     class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 text-cream/60 hover:text-gold transition-colors animate-bounce-slow">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+    </svg>
+  </a>
+</section>
+
+<!-- Services preview -->
+<section id="services-preview" class="max-w-7xl mx-auto px-6 py-24">
+  <div class="text-center mb-14">
+    <p class="uppercase tracking-[0.3em] text-gold text-xs mb-3">What We Offer</p>
+    <h2 class="font-serif text-3xl md:text-4xl">Our Services</h2>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    {% for service in services %}
+    <div class="border border-charcoal/10 rounded-lg p-8 hover:shadow-lg hover:border-gold/40 transition-all">
+      <h3 class="font-serif text-xl mb-3">{{ service.title }}</h3>
+      <p class="text-charcoal/70 text-sm leading-relaxed mb-5">{{ service.short_description }}</p>
+      <a href="{{ url_for('services.service_detail', slug=service.slug) }}"
+         class="text-gold text-sm font-medium hover:underline">Learn more &rarr;</a>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- Pricing preview -->
+<section class="bg-charcoal text-cream py-24">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-14">
+      <p class="uppercase tracking-[0.3em] text-gold text-xs mb-3">Investment</p>
+      <h2 class="font-serif text-3xl md:text-4xl">Packages Designed For You</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {% for pkg in packages %}
+      <div class="rounded-lg p-8 border {{ 'border-gold bg-gold/10' if pkg.is_popular else 'border-cream/15' }}">
+        {% if pkg.is_popular %}
+        <span class="text-xs uppercase tracking-widest text-gold">Most Popular</span>
+        {% endif %}
+        <h3 class="font-serif text-2xl mt-2 mb-1">{{ pkg.name }}</h3>
+        <p class="text-3xl font-semibold mb-1">{{ pkg.price | currency }}</p>
+        <p class="text-cream/60 text-sm mb-6">{{ pkg.duration }}</p>
+        <ul class="space-y-2 text-sm text-cream/80 mb-8">
+          {% for feature in pkg.features %}
+          <li class="flex items-center gap-2"><span class="text-gold">&#10003;</span> {{ feature }}</li>
+          {% endfor %}
+        </ul>
+        <a href="{{ url_for('booking.booking') }}"
+           class="block text-center py-3 rounded-full border border-gold text-gold hover:bg-gold hover:text-charcoal transition-colors">
+          Choose {{ pkg.name }}
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials preview -->
+{% if testimonials %}
+<section class="max-w-7xl mx-auto px-6 py-24">
+  <div class="text-center mb-14">
+    <p class="uppercase tracking-[0.3em] text-gold text-xs mb-3">Kind Words</p>
+    <h2 class="font-serif text-3xl md:text-4xl">What Our Clients Say</h2>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    {% for t in testimonials %}
+    <div class="bg-white rounded-lg p-8 shadow-sm">
+      <div class="text-gold mb-3">{{ '★' * t.rating }}</div>
+      <p class="text-charcoal/80 text-sm italic mb-5">&ldquo;{{ t.quote }}&rdquo;</p>
+      <p class="font-medium text-sm">{{ t.client_name }}</p>
+      <p class="text-charcoal/50 text-xs">{{ t.event_type }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<!-- CTA -->
+<section class="bg-gold/10 py-20 text-center px-6">
+  <h2 class="font-serif text-3xl md:text-4xl mb-4">Ready to Tell Your Story?</h2>
+  <p class="text-charcoal/70 mb-8 max-w-xl mx-auto">Let's create something timeless together. Check availability and reserve your date today.</p>
+  <a href="{{ url_for('booking.booking') }}"
+     class="inline-block bg-charcoal text-cream px-8 py-3.5 rounded-full font-medium hover:bg-gold hover:text-charcoal transition-colors">
+    Book Your Session
+  </a>
+</section>
+
+{% endblock %}

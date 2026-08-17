@@ -1,0 +1,83 @@
+{% extends "public/base.html" %}
+{% block content %}
+<section class="max-w-3xl mx-auto px-6 py-24">
+  <div class="text-center mb-12">
+    <p class="uppercase tracking-[0.3em] text-gold text-xs mb-3">Reserve Your Date</p>
+    <h1 class="font-serif text-4xl md:text-5xl mb-4">Book a Session</h1>
+    <p class="text-charcoal/70">Tell us about your event and we'll confirm availability within 24-48 hours.</p>
+  </div>
+
+  <form method="POST" action="{{ url_for('booking.booking') }}" id="booking-form" class="space-y-5">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div>
+        <label class="block text-sm font-medium mb-1.5">Full Name</label>
+        <input type="text" name="full_name" required
+               class="w-full border border-charcoal/20 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gold">
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1.5">Email</label>
+        <input type="email" name="email" required
+               class="w-full border border-charcoal/20 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gold">
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div>
+        <label class="block text-sm font-medium mb-1.5">Phone</label>
+        <input type="tel" name="phone"
+               class="w-full border border-charcoal/20 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gold">
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1.5">Event Date</label>
+        <input type="date" name="event_date" required min="{{ current_year }}-01-01"
+               class="w-full border border-charcoal/20 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gold">
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div>
+        <label class="block text-sm font-medium mb-1.5">Service Type</label>
+        <select name="service_type" required
+                class="w-full border border-charcoal/20 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gold">
+          <option value="">Select a service</option>
+          {% for service in services %}
+          <option value="{{ service.title }}">{{ service.title }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1.5">Package</label>
+        <select name="package"
+                class="w-full border border-charcoal/20 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gold">
+          <option value="">Select a package (optional)</option>
+          {% for pkg in packages %}
+          <option value="{{ pkg.name }}">{{ pkg.name }} - {{ pkg.price | currency }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium mb-1.5">Event Location</label>
+      <input type="text" name="event_location"
+             class="w-full border border-charcoal/20 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gold">
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium mb-1.5">Tell us about your vision</label>
+      <textarea name="message" rows="4"
+                class="w-full border border-charcoal/20 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gold"></textarea>
+    </div>
+
+    <button type="submit"
+            class="w-full bg-charcoal text-cream py-3.5 rounded-full font-medium hover:bg-gold hover:text-charcoal transition-colors">
+      Submit Booking Request
+    </button>
+  </form>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/booking.js') }}"></script>
+{% endblock %}

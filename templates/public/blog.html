@@ -1,0 +1,41 @@
+{% extends "public/base.html" %}
+{% block content %}
+<section class="max-w-7xl mx-auto px-6 py-24">
+  <div class="text-center mb-14">
+    <p class="uppercase tracking-[0.3em] text-gold text-xs mb-3">Journal</p>
+    <h1 class="font-serif text-4xl md:text-5xl">From the Blog</h1>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+    {% for post in posts %}
+    <a href="{{ url_for('blog.blog_detail', slug=post.slug) }}" class="group block">
+      {% set cover_image = post.cover_image_url or 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1200&q=80' %}
+      <div class="aspect-[4/3] overflow-hidden rounded-lg mb-4 bg-charcoal/5">
+        <img src="{{ cover_image }}" alt="{{ post.title }}"
+             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+      </div>
+      <p class="text-xs text-gold uppercase tracking-widest mb-2">{{ post.published_at | format_date }}</p>
+      <h3 class="font-serif text-xl mb-2 group-hover:text-gold transition-colors">{{ post.title }}</h3>
+      <p class="text-charcoal/60 text-sm">{{ post.excerpt | truncate_words(20) }}</p>
+    </a>
+    {% else %}
+    <p class="text-charcoal/60 col-span-full text-center">No posts published yet - check back soon.</p>
+    {% endfor %}
+  </div>
+
+  {% if total_pages > 1 %}
+  <div class="flex justify-center gap-2 mt-16">
+    {% for p in page_range %}
+      {% if p %}
+      <a href="{{ url_for('blog.blog_list', page=p) }}"
+         class="w-9 h-9 flex items-center justify-center rounded-full text-sm {{ 'bg-charcoal text-cream' if p == page else 'hover:bg-charcoal/10' }}">
+        {{ p }}
+      </a>
+      {% else %}
+      <span class="w-9 h-9 flex items-center justify-center text-charcoal/40">&hellip;</span>
+      {% endif %}
+    {% endfor %}
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

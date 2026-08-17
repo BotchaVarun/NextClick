@@ -1,0 +1,30 @@
+{% extends "admin/_base.html" %}
+{% block title %}SEO Settings{% endblock %}
+{% block page_title %}SEO Settings{% endblock %}
+{% block content %}
+<div class="bg-white rounded-lg border border-charcoal/10 p-6 max-w-2xl">
+  <form method="POST" action="{{ url_for('admin_seo.update') }}" class="space-y-4">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div>
+      <label class="block text-sm font-medium mb-1.5">Default Meta Title</label>
+      <input type="text" name="default_meta_title" value="{{ seo.default_meta_title }}" class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm">
+    </div>
+    <div>
+      <label class="block text-sm font-medium mb-1.5">Default Meta Description</label>
+      <textarea name="default_meta_description" rows="3" class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm">{{ seo.default_meta_description }}</textarea>
+    </div>
+    <div>
+      <label class="block text-sm font-medium mb-1.5">Google Analytics 4 Measurement ID</label>
+      <input type="text" name="ga4_measurement_id" value="{{ seo.ga4_measurement_id }}" placeholder="G-XXXXXXXXXX" class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm">
+    </div>
+    <div>
+      <label class="block text-sm font-medium mb-1.5">Google Search Console Verification</label>
+      <input type="text" name="google_search_console_verification" value="{{ seo.google_search_console_verification }}" class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm">
+    </div>
+    <p class="text-xs text-charcoal/50">
+      Sitemap: <code>/sitemap.xml</code> &middot; Robots: <code>/robots.txt</code> (auto-generated)
+    </p>
+    <button type="submit" class="bg-charcoal text-cream px-6 py-2.5 rounded-md text-sm hover:bg-gold hover:text-charcoal transition-colors">Save SEO Settings</button>
+  </form>
+</div>
+{% endblock %}

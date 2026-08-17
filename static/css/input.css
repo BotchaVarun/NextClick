@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { -webkit-font-smoothing: antialiased; }
+
+  /* Prose content (blog posts, legal pages) */
+  .prose h3 { margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.25rem; }
+  .prose p { margin-bottom: 1rem; line-height: 1.75; }
+}
+
+@layer components {
+  /* FAQ accordion chevron rotation */
+  details[open] summary span { transform: rotate(45deg); }
+  summary::-webkit-details-marker { display: none; }
+
+  /* Image hover zoom container helper */
+  .img-zoom { overflow: hidden; }
+  .img-zoom img { transition: transform 0.5s ease; }
+  .img-zoom:hover img { transform: scale(1.05); }
+}
+
+@layer utilities {
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-up {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  @keyframes heroZoom {
+    from { transform: scale(1.05); }
+    to { transform: scale(1.15); }
+  }
+  .animate-hero-zoom {
+    animation: heroZoom 20s ease-out forwards;
+  }
+
+  @keyframes bounceSlow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+  .animate-bounce-slow {
+    animation: bounceSlow 2.2s ease-in-out infinite;
+  }
+}

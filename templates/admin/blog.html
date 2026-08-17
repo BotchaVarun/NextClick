@@ -1,0 +1,42 @@
+{% extends "admin/_base.html" %}
+{% block title %}Blog{% endblock %}
+{% block page_title %}Blog Posts{% endblock %}
+{% block content %}
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+  <div class="lg:col-span-2 space-y-4">
+    {% for p in posts %}
+    <div class="bg-white rounded-lg border border-charcoal/10 p-5 flex items-start justify-between">
+      <div>
+        <p class="font-medium">{{ p.title }} {% if not p.is_published %}<span class="text-xs text-charcoal/40">(draft)</span>{% endif %}</p>
+        <p class="text-charcoal/60 text-sm mt-1">{{ p.excerpt | truncate_words(15) }}</p>
+      </div>
+      <form method="POST" action="{{ url_for('admin_blog.delete', blog_id=p._id) }}"
+            onsubmit="return confirm('Delete this post?');">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button type="submit" class="text-red-600 text-xs hover:underline">Delete</button>
+      </form>
+    </div>
+    {% else %}
+    <p class="text-center text-charcoal/40 py-8">No blog posts yet.</p>
+    {% endfor %}
+  </div>
+
+  <div class="bg-white rounded-lg border border-charcoal/10 p-5 h-fit">
+    <h2 class="font-medium mb-4">New Post</h2>
+    <form method="POST" action="{{ url_for('admin_blog.create') }}" enctype="multipart/form-data" class="space-y-3">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <input type="text" name="title" placeholder="Title" required class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm">
+      <textarea name="excerpt" placeholder="Short excerpt" rows="2" class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm"></textarea>
+      <textarea name="content" placeholder="Full content (HTML supported)" rows="6" class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm"></textarea>
+      <input type="text" name="author" placeholder="Author" class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm">
+      <input type="text" name="tags" placeholder="Tags, comma-separated" class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm">
+      <input type="file" name="cover_image" accept="image/*" class="w-full text-sm">
+      <input type="text" name="meta_title" placeholder="SEO meta title" class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm">
+      <textarea name="meta_description" placeholder="SEO meta description" rows="2" class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm"></textarea>
+      <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="is_published"> Publish immediately</label>
+      <button type="submit" class="w-full bg-charcoal text-cream py-2.5 rounded-md text-sm hover:bg-gold hover:text-charcoal transition-colors">Save Post</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

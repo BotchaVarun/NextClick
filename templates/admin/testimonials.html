@@ -1,0 +1,41 @@
+{% extends "admin/_base.html" %}
+{% block title %}Testimonials{% endblock %}
+{% block page_title %}Testimonials{% endblock %}
+{% block content %}
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+  <div class="lg:col-span-2 space-y-4">
+    {% for t in testimonials %}
+    <div class="bg-white rounded-lg border border-charcoal/10 p-5 flex items-start justify-between">
+      <div>
+        <p class="font-medium">{{ t.client_name }} {% if t.is_featured %}<span class="text-xs text-gold">(Featured)</span>{% endif %}</p>
+        <p class="text-charcoal/60 text-sm mt-1 italic">&ldquo;{{ t.quote | truncate_words(20) }}&rdquo;</p>
+      </div>
+      <form method="POST" action="{{ url_for('admin_testimonial.delete', t_id=t._id) }}"
+            onsubmit="return confirm('Delete this testimonial?');">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button type="submit" class="text-red-600 text-xs hover:underline">Delete</button>
+      </form>
+    </div>
+    {% else %}
+    <p class="text-center text-charcoal/40 py-8">No testimonials yet.</p>
+    {% endfor %}
+  </div>
+
+  <div class="bg-white rounded-lg border border-charcoal/10 p-5 h-fit">
+    <h2 class="font-medium mb-4">Add Testimonial</h2>
+    <form method="POST" action="{{ url_for('admin_testimonial.create') }}" enctype="multipart/form-data" class="space-y-3">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <input type="text" name="client_name" placeholder="Client name" required class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm">
+      <input type="text" name="event_type" placeholder="Event type (e.g. Wedding)" class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm">
+      <textarea name="quote" placeholder="Quote" rows="3" required class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm"></textarea>
+      <select name="rating" class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm">
+        {% for r in [5,4,3,2,1] %}<option value="{{ r }}">{{ r }} stars</option>{% endfor %}
+      </select>
+      <input type="file" name="photo" accept="image/*" class="w-full text-sm">
+      <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="is_featured"> Feature on homepage</label>
+      <button type="submit" class="w-full bg-charcoal text-cream py-2.5 rounded-md text-sm hover:bg-gold hover:text-charcoal transition-colors">Add Testimonial</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

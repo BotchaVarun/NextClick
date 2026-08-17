@@ -1,0 +1,41 @@
+{% extends "admin/_base.html" %}
+{% block title %}Services{% endblock %}
+{% block page_title %}Services{% endblock %}
+{% block content %}
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+  <div class="lg:col-span-2 space-y-4">
+    {% for s in services %}
+    <div class="bg-white rounded-lg border border-charcoal/10 p-5">
+      <div class="flex items-start justify-between">
+        <div>
+          <p class="font-medium">{{ s.title }} {% if not s.is_active %}<span class="text-xs text-charcoal/40">(inactive)</span>{% endif %}</p>
+          <p class="text-charcoal/60 text-sm mt-1">{{ s.short_description }}</p>
+        </div>
+        <form method="POST" action="{{ url_for('admin_services.delete', service_id=s._id) }}"
+              onsubmit="return confirm('Delete this service?');">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button type="submit" class="text-red-600 text-xs hover:underline">Delete</button>
+        </form>
+      </div>
+    </div>
+    {% else %}
+    <p class="text-center text-charcoal/40 py-8">No services added yet.</p>
+    {% endfor %}
+  </div>
+
+  <div class="bg-white rounded-lg border border-charcoal/10 p-5 h-fit">
+    <h2 class="font-medium mb-4">Add Service</h2>
+    <form method="POST" action="{{ url_for('admin_services.create') }}" enctype="multipart/form-data" class="space-y-3">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <input type="text" name="title" placeholder="Title" required class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm">
+      <input type="text" name="short_description" placeholder="Short description" class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm">
+      <textarea name="description" placeholder="Full description" rows="3" class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm"></textarea>
+      <input type="number" name="order" placeholder="Display order" class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm">
+      <input type="file" name="image" accept="image/*" class="w-full text-sm">
+      <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="is_active" checked> Active</label>
+      <button type="submit" class="w-full bg-charcoal text-cream py-2.5 rounded-md text-sm hover:bg-gold hover:text-charcoal transition-colors">Add Service</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

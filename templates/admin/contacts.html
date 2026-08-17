@@ -1,0 +1,42 @@
+{% extends "admin/_base.html" %}
+{% block title %}Contacts{% endblock %}
+{% block page_title %}Contact Messages{% endblock %}
+{% block content %}
+
+<div class="flex gap-2 mb-5">
+  <a href="{{ url_for('admin_contact.contacts') }}"
+     class="text-xs px-4 py-2 rounded-full {{ 'bg-charcoal text-cream' if not unread_only else 'bg-white border border-charcoal/10' }}">All</a>
+  <a href="{{ url_for('admin_contact.contacts', unread=1) }}"
+     class="text-xs px-4 py-2 rounded-full {{ 'bg-charcoal text-cream' if unread_only else 'bg-white border border-charcoal/10' }}">Unread</a>
+</div>
+
+<div class="space-y-3">
+  {% for c in contacts %}
+  <div class="bg-white rounded-lg border border-charcoal/10 p-5">
+    <div class="flex items-start justify-between">
+      <div>
+        <p class="font-medium">{{ c.name }} {% if not c.is_read %}<span class="w-2 h-2 inline-block rounded-full bg-gold ml-1"></span>{% endif %}</p>
+        <p class="text-charcoal/50 text-xs">{{ c.email }} &middot; {{ c.subject }}</p>
+      </div>
+      <p class="text-charcoal/40 text-xs">{{ c.created_at | format_date }}</p>
+    </div>
+    <p class="text-sm text-charcoal/80 mt-3">{{ c.message }}</p>
+    <div class="flex gap-4 mt-4">
+      {% if not c.is_read %}
+      <form method="POST" action="{{ url_for('admin_contact.mark_read', contact_id=c._id) }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button type="submit" class="text-xs text-gold hover:underline">Mark as read</button>
+      </form>
+      {% endif %}
+      <form method="POST" action="{{ url_for('admin_contact.delete_contact', contact_id=c._id) }}"
+            onsubmit="return confirm('Delete this message?');">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button type="submit" class="text-xs text-red-600 hover:underline">Delete</button>
+      </form>
+    </div>
+  </div>
+  {% else %}
+  <p class="text-center text-charcoal/40 py-8">No messages found.</p>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "public/base.html" %}
+{% block content %}
+<section class="max-w-7xl mx-auto px-6 py-24">
+  <div class="text-center mb-14">
+    <p class="uppercase tracking-[0.3em] text-gold text-xs mb-3">Kind Words</p>
+    <h1 class="font-serif text-4xl md:text-5xl">Client Testimonials</h1>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    {% for t in testimonials %}
+    <div class="bg-white rounded-lg p-8 shadow-sm">
+      <div class="text-gold mb-3">{{ '★' * t.rating }}</div>
+      <p class="text-charcoal/80 text-sm italic mb-5">&ldquo;{{ t.quote }}&rdquo;</p>
+      <p class="font-medium text-sm">{{ t.client_name }}</p>
+      <p class="text-charcoal/50 text-xs">{{ t.event_type }}</p>
+    </div>
+    {% else %}
+    <p class="text-charcoal/60 col-span-full text-center">No testimonials yet.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

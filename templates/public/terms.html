@@ -1,0 +1,25 @@
+{% extends "public/base.html" %}
+{% block content %}
+<section class="max-w-3xl mx-auto px-6 py-24 prose prose-lg text-charcoal/80">
+  <p class="uppercase tracking-[0.3em] text-gold text-xs mb-3 not-prose">Legal</p>
+  <h1 class="font-serif text-4xl md:text-5xl mb-10 not-prose">Terms &amp; Conditions</h1>
+
+  <h3 class="font-serif">Bookings &amp; Deposits</h3>
+  <p>A signed agreement and deposit are required to secure your date. Dates are not held without
+     a confirmed booking.</p>
+
+  <h3 class="font-serif">Cancellations</h3>
+  <p>Cancellations made less than 14 days before the scheduled session forfeit the deposit.
+     Rescheduling is available subject to availability.</p>
+
+  <h3 class="font-serif">Image Usage</h3>
+  <p>Clients receive a personal-use print release. Commercial use, resale, or third-party
+     redistribution of images requires separate written permission.</p>
+
+  <h3 class="font-serif">Liability</h3>
+  <p>While every effort is made to deliver complete coverage, liability in the event of equipment
+     failure or unforeseen circumstances is limited to a refund of fees paid.</p>
+
+  <p class="text-sm text-charcoal/50 not-prose mt-10">Last updated: {{ current_year }}</p>
+</section>
+{% endblock %}

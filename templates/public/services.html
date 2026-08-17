@@ -1,0 +1,38 @@
+{% extends "public/base.html" %}
+{% block content %}
+
+{% if single %}
+<section class="max-w-3xl mx-auto px-6 py-24">
+  <p class="uppercase tracking-[0.3em] text-gold text-xs mb-3">Service</p>
+  <h1 class="font-serif text-4xl md:text-5xl mb-6">{{ service.title }}</h1>
+  <p class="text-charcoal/80 leading-relaxed text-lg mb-10">{{ service.description }}</p>
+  <a href="{{ url_for('booking.booking') }}"
+     class="inline-block bg-charcoal text-cream px-8 py-3.5 rounded-full font-medium hover:bg-gold hover:text-charcoal transition-colors">
+    Book This Service
+  </a>
+  <div class="mt-8">
+    <a href="{{ url_for('services.services_list') }}" class="text-sm text-gold hover:underline">&larr; Back to all services</a>
+  </div>
+</section>
+{% else %}
+<section class="max-w-7xl mx-auto px-6 py-24">
+  <div class="text-center mb-14">
+    <p class="uppercase tracking-[0.3em] text-gold text-xs mb-3">What We Offer</p>
+    <h1 class="font-serif text-4xl md:text-5xl">Our Services</h1>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    {% for service in services %}
+    <div class="border border-charcoal/10 rounded-lg p-8 hover:shadow-lg hover:border-gold/40 transition-all">
+      <h3 class="font-serif text-xl mb-3">{{ service.title }}</h3>
+      <p class="text-charcoal/70 text-sm leading-relaxed mb-5">{{ service.short_description }}</p>
+      <a href="{{ url_for('services.service_detail', slug=service.slug) }}"
+         class="text-gold text-sm font-medium hover:underline">Learn more &rarr;</a>
+    </div>
+    {% else %}
+    <p class="text-charcoal/60 col-span-full text-center">Services coming soon.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% endblock %}

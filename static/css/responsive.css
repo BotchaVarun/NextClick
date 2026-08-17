@@ -1,0 +1,10 @@
+/* Fine-grained responsive tweaks beyond Tailwind's default breakpoints */
+
+@media (max-width: 640px) {
+  .font-serif { line-height: 1.15; }
+}
+
+/* Prevent horizontal scroll on very small devices from wide tables */
+@media (max-width: 480px) {
+  table { font-size: 0.8rem; }
+}

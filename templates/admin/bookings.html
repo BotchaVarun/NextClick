@@ -1,0 +1,60 @@
+{% extends "admin/_base.html" %}
+{% block title %}Bookings{% endblock %}
+{% block page_title %}Bookings{% endblock %}
+{% block content %}
+
+<div class="flex gap-2 mb-5">
+  {% for s in ['all','pending','confirmed','completed','cancelled'] %}
+  <a href="{{ url_for('admin_booking.bookings', status=s) }}"
+     class="text-xs px-4 py-2 rounded-full capitalize {{ 'bg-charcoal text-cream' if status == s else 'bg-white border border-charcoal/10' }}">
+    {{ s }}
+  </a>
+  {% endfor %}
+</div>
+
+<div class="bg-white rounded-lg border border-charcoal/10 overflow-x-auto">
+  <table class="w-full text-sm">
+    <thead class="bg-charcoal/5 text-left text-xs uppercase tracking-wide text-charcoal/50">
+      <tr>
+        <th class="px-5 py-3">Client</th>
+        <th class="px-5 py-3">Service</th>
+        <th class="px-5 py-3">Event Date</th>
+        <th class="px-5 py-3">Status</th>
+        <th class="px-5 py-3">Actions</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-charcoal/5">
+      {% for b in bookings %}
+      <tr>
+        <td class="px-5 py-3">
+          <p class="font-medium">{{ b.full_name }}</p>
+          <p class="text-charcoal/50 text-xs">{{ b.email }}</p>
+        </td>
+        <td class="px-5 py-3">{{ b.service_type }}</td>
+        <td class="px-5 py-3">{{ b.event_date }}</td>
+        <td class="px-5 py-3">
+          <form method="POST" action="{{ url_for('admin_booking.update_status', booking_id=b._id) }}" class="inline">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <select name="status" onchange="this.form.submit()"
+                    class="text-xs border border-charcoal/20 rounded-md px-2 py-1 capitalize">
+              {% for s in ['pending','confirmed','completed','cancelled'] %}
+              <option value="{{ s }}" {{ 'selected' if b.status == s }}>{{ s }}</option>
+              {% endfor %}
+            </select>
+          </form>
+        </td>
+        <td class="px-5 py-3">
+          <form method="POST" action="{{ url_for('admin_booking.delete_booking', booking_id=b._id) }}"
+                onsubmit="return confirm('Delete this booking?');" class="inline">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type="submit" class="text-red-600 text-xs hover:underline">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="5" class="px-5 py-8 text-center text-charcoal/40">No bookings found.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "public/base.html" %}
+{% block content %}
+<section class="max-w-3xl mx-auto px-6 py-24">
+  <div class="text-center mb-14">
+    <p class="uppercase tracking-[0.3em] text-gold text-xs mb-3">Questions</p>
+    <h1 class="font-serif text-4xl md:text-5xl">Frequently Asked Questions</h1>
+  </div>
+
+  <div class="space-y-4" id="faq-accordion">
+    {% set faqs = [
+      ("How far in advance should I book?", "We recommend booking 2-4 months ahead for portraits and 6-12 months ahead for weddings, especially during peak season."),
+      ("Do you travel for destination sessions?", "Yes - we love destination work. Travel fees apply beyond a 30-mile radius and are quoted individually."),
+      ("How long until I receive my photos?", "Portrait sessions are delivered within 2 weeks; full weddings within 4-6 weeks. A sneak peek is shared within 48 hours."),
+      ("What's included in the online gallery?", "A private, password-protected gallery with high-resolution downloads and a print release."),
+      ("Can I customize a package?", "Absolutely - reach out via our contact page and we'll tailor a package to your event.")
+    ] %}
+    {% for question, answer in faqs %}
+    <details class="group border border-charcoal/10 rounded-lg px-6 py-5">
+      <summary class="cursor-pointer font-medium flex items-center justify-between list-none">
+        {{ question }}
+        <span class="text-gold group-open:rotate-45 transition-transform">+</span>
+      </summary>
+      <p class="text-charcoal/70 text-sm mt-3 leading-relaxed">{{ answer }}</p>
+    </details>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "admin/_base.html" %}
+{% block title %}Profile{% endblock %}
+{% block page_title %}Admin Profile{% endblock %}
+{% block content %}
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl">
+  <div class="bg-white rounded-lg border border-charcoal/10 p-6">
+    <h2 class="font-medium mb-4">Profile Information</h2>
+    <form method="POST" action="{{ url_for('admin_profile.update') }}" class="space-y-4">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <div>
+        <label class="block text-sm font-medium mb-1.5">Name</label>
+        <input type="text" name="name" value="{{ current_user.name }}" class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm">
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1.5">Email</label>
+        <input type="email" name="email" value="{{ current_user.email }}" class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm">
+      </div>
+      <button type="submit" class="bg-charcoal text-cream px-5 py-2.5 rounded-md text-sm hover:bg-gold hover:text-charcoal transition-colors">Save Changes</button>
+    </form>
+  </div>
+
+  <div class="bg-white rounded-lg border border-charcoal/10 p-6">
+    <h2 class="font-medium mb-4">Change Password</h2>
+    <form method="POST" action="{{ url_for('admin_profile.change_password') }}" class="space-y-4">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <div>
+        <label class="block text-sm font-medium mb-1.5">Current Password</label>
+        <input type="password" name="current_password" required class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm">
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1.5">New Password</label>
+        <input type="password" name="new_password" required minlength="8" class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm">
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1.5">Confirm New Password</label>
+        <input type="password" name="confirm_password" required minlength="8" class="w-full border border-charcoal/20 rounded-md px-3 py-2 text-sm">
+      </div>
+      <button type="submit" class="bg-charcoal text-cream px-5 py-2.5 rounded-md text-sm hover:bg-gold hover:text-charcoal transition-colors">Update Password</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

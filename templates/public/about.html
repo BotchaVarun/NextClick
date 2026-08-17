@@ -1,0 +1,43 @@
+{% extends "public/base.html" %}
+{% block content %}
+<section class="max-w-4xl mx-auto px-6 py-24">
+  <p class="uppercase tracking-[0.3em] text-gold text-xs mb-3 text-center">Our Story</p>
+  <h1 class="font-serif text-4xl md:text-5xl text-center mb-10">About {{ site_name }}</h1>
+
+  <div class="prose prose-lg max-w-none text-charcoal/80 leading-relaxed space-y-6">
+    <p>
+      Every photograph tells a story - and we've built our studio around capturing yours
+      with honesty, warmth, and an eye for timeless detail. What began as a passion for
+      documenting real, unscripted moments has grown into a full-service photography studio
+      trusted by couples, families, and businesses alike.
+    </p>
+    <p>
+      We believe great photography isn't about perfection - it's about presence. Our approach
+      blends editorial composition with a relaxed, friendly shooting style, so you can simply
+      enjoy your moment while we take care of the rest.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 text-center">
+    <div>
+      <p class="font-serif text-4xl text-gold mb-2">4+</p>
+      <p class="text-sm text-charcoal/60 uppercase tracking-wide">Years of Experience</p>
+    </div>
+    <div>
+      <p class="font-serif text-4xl text-gold mb-2">100+</p>
+      <p class="text-sm text-charcoal/60 uppercase tracking-wide">Sessions Delivered</p>
+    </div>
+    <div>
+      <p class="font-serif text-4xl text-gold mb-2">98%</p>
+      <p class="text-sm text-charcoal/60 uppercase tracking-wide">Client Satisfaction</p>
+    </div>
+  </div>
+
+  <div class="text-center mt-16">
+    <a href="{{ url_for('booking.booking') }}"
+       class="inline-block bg-charcoal text-cream px-8 py-3.5 rounded-full font-medium hover:bg-gold hover:text-charcoal transition-colors">
+      Work With Us
+    </a>
+  </div>
+</section>
+{% endblock %}

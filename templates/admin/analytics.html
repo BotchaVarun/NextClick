@@ -1,0 +1,36 @@
+{% extends "admin/_base.html" %}
+{% block title %}Analytics{% endblock %}
+{% block page_title %}Analytics{% endblock %}
+{% block content %}
+
+<div class="grid grid-cols-2 md:grid-cols-4 gap-5 mb-8">
+  <div class="bg-white rounded-lg p-5 border border-charcoal/10">
+    <p class="text-xs text-charcoal/50 uppercase tracking-wide mb-1">Bookings (30 days)</p>
+    <p class="text-3xl font-serif">{{ summary.recent_bookings }}</p>
+  </div>
+  <div class="bg-white rounded-lg p-5 border border-charcoal/10">
+    <p class="text-xs text-charcoal/50 uppercase tracking-wide mb-1">Total Contacts</p>
+    <p class="text-3xl font-serif">{{ summary.total_contacts }}</p>
+  </div>
+  <div class="bg-white rounded-lg p-5 border border-charcoal/10">
+    <p class="text-xs text-charcoal/50 uppercase tracking-wide mb-1">Testimonials</p>
+    <p class="text-3xl font-serif">{{ summary.total_testimonials }}</p>
+  </div>
+  <div class="bg-white rounded-lg p-5 border border-charcoal/10">
+    <p class="text-xs text-charcoal/50 uppercase tracking-wide mb-1">Published Posts</p>
+    <p class="text-3xl font-serif">{{ summary.published_blogs }}</p>
+  </div>
+</div>
+
+<div class="bg-white rounded-lg border border-charcoal/10 p-6">
+  <h2 class="font-medium mb-2">Website Traffic (Google Analytics 4)</h2>
+  <p class="text-sm text-charcoal/60 mb-4">
+    Detailed traffic, source, and behavior data lives in Google Analytics. This dashboard covers
+    business metrics (bookings/contacts); GA4 covers visitor-level metrics.
+  </p>
+  <a href="https://analytics.google.com" target="_blank" rel="noopener"
+     class="inline-block bg-charcoal text-cream px-5 py-2.5 rounded-md text-sm hover:bg-gold hover:text-charcoal transition-colors">
+    Open Google Analytics &rarr;
+  </a>
+</div>
+{% endblock %}

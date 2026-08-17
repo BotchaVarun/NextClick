@@ -1,0 +1,38 @@
+<header x-data="{ open: false }" class="sticky top-0 z-50 bg-cream/95 backdrop-blur border-b border-charcoal/10">
+  <div class="max-w-7xl mx-auto px-6 flex items-center justify-between h-20">
+    <a href="{{ url_for('home.index') }}" class="font-serif text-2xl tracking-wide">
+      {{ site_name }}
+    </a>
+
+    <nav class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide">
+      <a href="{{ url_for('home.index') }}" class="hover:text-gold transition-colors">Home</a>
+      <a href="{{ url_for('about.about') }}" class="hover:text-gold transition-colors">About</a>
+      <a href="{{ url_for('services.services_list') }}" class="hover:text-gold transition-colors">Services</a>
+      <a href="{{ url_for('pricing.pricing_list') }}" class="hover:text-gold transition-colors">Pricing</a>
+      <a href="{{ url_for('home.testimonials') }}" class="hover:text-gold transition-colors">Testimonials</a>
+      <a href="{{ url_for('blog.blog_list') }}" class="hover:text-gold transition-colors">Blog</a>
+      <a href="{{ url_for('contact.contact') }}" class="hover:text-gold transition-colors">Contact</a>
+      <a href="{{ url_for('booking.booking') }}"
+         class="bg-charcoal text-cream px-5 py-2.5 rounded-full hover:bg-gold hover:text-charcoal transition-colors">
+        Book Now
+      </a>
+    </nav>
+
+    <button id="mobile-menu-btn" class="md:hidden" aria-label="Toggle menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+
+  <nav id="mobile-menu" class="hidden md:hidden flex-col gap-1 px-6 pb-6 text-sm font-medium">
+    <a href="{{ url_for('home.index') }}" class="block py-2">Home</a>
+    <a href="{{ url_for('about.about') }}" class="block py-2">About</a>
+    <a href="{{ url_for('services.services_list') }}" class="block py-2">Services</a>
+    <a href="{{ url_for('pricing.pricing_list') }}" class="block py-2">Pricing</a>
+    <a href="{{ url_for('home.testimonials') }}" class="block py-2">Testimonials</a>
+    <a href="{{ url_for('blog.blog_list') }}" class="block py-2">Blog</a>
+    <a href="{{ url_for('contact.contact') }}" class="block py-2">Contact</a>
+    <a href="{{ url_for('booking.booking') }}" class="block py-2 font-semibold text-gold">Book Now</a>
+  </nav>
+</header>

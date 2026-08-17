@@ -1,0 +1,13 @@
+{
+  "name": "photography-business-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Tailwind CSS build pipeline for the photography business site (Flask serves the compiled output).",
+  "scripts": {
+    "build:css": "tailwindcss -i ./static/css/input.css -o ./static/css/public.css --minify && tailwindcss -i ./static/css/admin-input.css -o ./static/css/admin.css --minify",
+    "watch:css": "tailwindcss -i ./static/css/input.css -o ./static/css/public.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  }
+}
