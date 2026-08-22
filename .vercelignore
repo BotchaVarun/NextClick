@@ -1,0 +1,26 @@
+# Version control
+.git/
+.gitignore
+
+# Environments & Packages
+venv/
+.venv/
+node_modules/
+
+# Python Cache & Tests
+__pycache__/
+*.pyc
+.pytest_cache/
+tests/
+
+# Local configuration & credentials
+.env
+firebase-service-account.json
+
+# Exclude alternative entrypoints that conflict with /api/index.py on Vercel
+wsgi.py
+run.py
+
+# Backups & Logs
+logs/
+backups/
