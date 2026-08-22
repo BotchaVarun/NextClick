@@ -17,7 +17,6 @@ from datetime import datetime, timezone
 from types import SimpleNamespace
 
 import certifi
-import mongomock
 from bson.objectid import ObjectId
 from pymongo import MongoClient
 from pymongo.database import Database
@@ -317,6 +316,7 @@ def init_db(app):
     if not allow_mock:
         raise RuntimeError("Could not reach MongoDB Atlas or Firestore. Check your database configuration.")
     app.logger.warning("Using in-memory Mongo-compatible mock database.")
+    import mongomock
     _client = mongomock.MongoClient()
     _db = _client[app.config["DB_NAME"]]
     _ensure_indexes(_db)
